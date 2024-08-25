@@ -1,0 +1,156 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|c:\\users\\dell\\downloads\\rehan\\surveymonkey\\api\\properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|solutionrelative:properties\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|c:\\users\\dell\\downloads\\rehan\\surveymonkey\\api\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|solutionrelative:web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|c:\\users\\dell\\downloads\\rehan\\surveymonkey\\api\\controllers\\surveycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|solutionrelative:controllers\\surveycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|c:\\users\\dell\\downloads\\rehan\\surveymonkey\\api\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|c:\\users\\dell\\downloads\\rehan\\surveymonkey\\api\\areas\\helppage\\app_start\\helppageconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|solutionrelative:areas\\helppage\\app_start\\helppageconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|c:\\users\\dell\\downloads\\rehan\\surveymonkey\\api\\app_start\\bundleconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|solutionrelative:app_start\\bundleconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|c:\\users\\dell\\downloads\\rehan\\surveymonkey\\api\\app_start\\filterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|solutionrelative:app_start\\filterconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|c:\\users\\dell\\downloads\\rehan\\surveymonkey\\api\\app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5B9182E-7E56-41F8-98F5-FC0C17F9699D}|API.csproj|solutionrelative:app_start\\routeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\Properties\\AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "Properties\\AssemblyInfo.cs",
+              "ToolTip": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\Properties\\AssemblyInfo.cs",
+              "RelativeToolTip": "Properties\\AssemblyInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-24T16:57:49.576Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Web.config",
+              "DocumentMoniker": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\Web.config",
+              "RelativeDocumentMoniker": "Web.config",
+              "ToolTip": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\Web.config",
+              "RelativeToolTip": "Web.config",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAAAGUAAACFAQAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-08-24T16:45:44.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SurveyController.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\Controllers\\SurveyController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SurveyController.cs",
+              "ToolTip": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\Controllers\\SurveyController.cs",
+              "RelativeToolTip": "Controllers\\SurveyController.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAwBEAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-24T16:38:49.992Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-24T16:38:47.072Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "HelpPageConfig.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\Areas\\HelpPage\\App_Start\\HelpPageConfig.cs",
+              "RelativeDocumentMoniker": "Areas\\HelpPage\\App_Start\\HelpPageConfig.cs",
+              "ToolTip": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\Areas\\HelpPage\\App_Start\\HelpPageConfig.cs",
+              "RelativeToolTip": "Areas\\HelpPage\\App_Start\\HelpPageConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-24T16:37:37.342Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BundleConfig.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\App_Start\\BundleConfig.cs",
+              "RelativeDocumentMoniker": "App_Start\\BundleConfig.cs",
+              "ToolTip": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\App_Start\\BundleConfig.cs",
+              "RelativeToolTip": "App_Start\\BundleConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-24T16:37:19.603Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FilterConfig.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\App_Start\\FilterConfig.cs",
+              "RelativeDocumentMoniker": "App_Start\\FilterConfig.cs",
+              "ToolTip": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\App_Start\\FilterConfig.cs",
+              "RelativeToolTip": "App_Start\\FilterConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-24T16:37:16.983Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RouteConfig.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\App_Start\\RouteConfig.cs",
+              "RelativeDocumentMoniker": "App_Start\\RouteConfig.cs",
+              "ToolTip": "C:\\Users\\Dell\\Downloads\\rehan\\SurveyMonkey\\API\\App_Start\\RouteConfig.cs",
+              "RelativeToolTip": "App_Start\\RouteConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-24T16:37:13.669Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="surveyMonkeyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ActiveSurvey">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sid" Type="Int32" />
+    <Property Name="startDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="endDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="discipline" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="semester" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="section" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="conductsurvey">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fromdate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="todate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="surveyid" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Crsdtl">
+    <Key>
+      <PropertyRef Name="Course_no" />
+      <PropertyRef Name="REG_NO" />
+      <PropertyRef Name="SEMESTER_NO" />
+    </Key>
+    <Property Name="Course_no" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ATTEMPT_NO" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="REG_NO" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Emp_no" Type="String" MaxLength="7" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="SEMESTER_NO" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SECTION" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Final_score" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="Midterm_score" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="Assi_score" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="Prac_score" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="Grade" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+    <Property Name="Q_points" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="DISCIPLINE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SOS" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="pGrade" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Mid_att" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Fin_att" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="CrsSemNo" Type="Int32" />
+    <Property Name="DT" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Question_Answer">
+    <Key>
+      <PropertyRef Name="Question_ID" />
+    </Key>
+    <Property Name="Question_ID" Type="Int32" Nullable="false" />
+    <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="sid" Type="Int32" />
+  </EntityType>
+  <EntityType Name="survey">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="createdby" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="approved" Type="Int32" />
+    <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="aid" Type="Int32" />
+    <Property Name="dTime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="sex" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="tech" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="surveyaudience">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="conductsurveyid" Type="Int32" />
+    <Property Name="userid" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="surveyquestion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="option1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="option2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="option3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="option4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="surveyid" Type="Int32" />
+  </EntityType>
+  <EntityType Name="surveyresponse">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="surveyid" Type="Int32" />
+    <Property Name="questionid" Type="Int32" />
+    <Property Name="response" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="userid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="teacherSurvey">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="createdby" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="tid" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="EMPMTR">
+    <Key>
+      <PropertyRef Name="Emp_no" />
+    </Key>
+    <Property Name="Emp_no" Type="String" MaxLength="7" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Emp_firstname" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="Emp_lastname" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="Emp_middle" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="Dsgn_no" Type="String" MaxLength="55" FixedLength="true" Unicode="false" />
+    <Property Name="Emp_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Joining_date" Type="DateTime" Precision="3" />
+    <Property Name="Resign_date" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+    <Property Name="IsWorking" Type="Boolean" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Roles" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="sex" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="STMTR">
+    <Key>
+      <PropertyRef Name="Reg_No" />
+      <PropertyRef Name="App_no" />
+      <PropertyRef Name="Birth_date" />
+    </Key>
+    <Property Name="Reg_No" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="App_no" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="St_firstname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="St_lastname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="St_middlename" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Father_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="St_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Sex" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Marital_status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Birth_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Nic_no" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="Pr_city" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Per_city" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Sess" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Pref_1" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="Pref_2" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="Adm_date" Type="DateTime" Precision="3" />
+    <Property Name="Semester_no" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="St_status" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
+    <Property Name="USER_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Final_course" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="Enrl_status" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+    <Property Name="SOS" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="Section" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Discipline" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="surveyMonkeyEntities7" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ActiveSurveys" EntityType="Self.ActiveSurvey" />
+    <EntitySet Name="conductsurveys" EntityType="Self.conductsurvey" />
+    <EntitySet Name="Crsdtls" EntityType="Self.Crsdtl" />
+    <EntitySet Name="Question_Answer" EntityType="Self.Question_Answer" />
+    <EntitySet Name="surveys" EntityType="Self.survey" />
+    <EntitySet Name="surveyaudiences" EntityType="Self.surveyaudience" />
+    <EntitySet Name="surveyquestions" EntityType="Self.surveyquestion" />
+    <EntitySet Name="surveyresponses" EntityType="Self.surveyresponse" />
+    <EntitySet Name="teacherSurveys" EntityType="Self.teacherSurvey" />
+    <EntitySet Name="EMPMTRs" EntityType="Self.EMPMTR" />
+    <EntitySet Name="STMTRs" EntityType="Self.STMTR" />
+  </EntityContainer>
+</Schema>

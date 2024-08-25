@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="surveyMonkeyModelStoreContainer" CdmEntityContainer="surveyMonkeyEntities7">
+    <EntitySetMapping Name="ActiveSurveys">
+      <EntityTypeMapping TypeName="surveyMonkeyModel.ActiveSurvey">
+        <MappingFragment StoreEntitySet="ActiveSurvey">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="sid" ColumnName="sid" />
+          <ScalarProperty Name="startDate" ColumnName="startDate" />
+          <ScalarProperty Name="endDate" ColumnName="endDate" />
+          <ScalarProperty Name="discipline" ColumnName="discipline" />
+          <ScalarProperty Name="semester" ColumnName="semester" />
+          <ScalarProperty Name="section" ColumnName="section" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="conductsurveys">
+      <EntityTypeMapping TypeName="surveyMonkeyModel.conductsurvey">
+        <MappingFragment StoreEntitySet="conductsurvey">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="fromdate" ColumnName="fromdate" />
+          <ScalarProperty Name="todate" ColumnName="todate" />
+          <ScalarProperty Name="surveyid" ColumnName="surveyid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Crsdtls">
+      <EntityTypeMapping TypeName="surveyMonkeyModel.Crsdtl">
+        <MappingFragment StoreEntitySet="Crsdtl">
+          <ScalarProperty Name="Course_no" ColumnName="Course_no" />
+          <ScalarProperty Name="ATTEMPT_NO" ColumnName="ATTEMPT_NO" />
+          <ScalarProperty Name="REG_NO" ColumnName="REG_NO" />
+          <ScalarProperty Name="Emp_no" ColumnName="Emp_no" />
+          <ScalarProperty Name="SEMESTER_NO" ColumnName="SEMESTER_NO" />
+          <ScalarProperty Name="SECTION" ColumnName="SECTION" />
+          <ScalarProperty Name="Final_score" ColumnName="Final_score" />
+          <ScalarProperty Name="Midterm_score" ColumnName="Midterm_score" />
+          <ScalarProperty Name="Assi_score" ColumnName="Assi_score" />
+          <ScalarProperty Name="Prac_score" ColumnName="Prac_score" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+          <ScalarProperty Name="Q_points" ColumnName="Q_points" />
+          <ScalarProperty Name="DISCIPLINE" ColumnName="DISCIPLINE" />
+          <ScalarProperty Name="SOS" ColumnName="SOS" />
+          <ScalarProperty Name="pGrade" ColumnName="pGrade" />
+          <ScalarProperty Name="Mid_att" ColumnName="Mid_att" />
+          <ScalarProperty Name="Fin_att" ColumnName="Fin_att" />
+          <ScalarProperty Name="CrsSemNo" ColumnName="CrsSemNo" />
+          <ScalarProperty Name="DT" ColumnName="DT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Question_Answer">
+      <EntityTypeMapping TypeName="surveyMonkeyModel.Question_Answer">
+        <MappingFragment StoreEntitySet="Question_Answer">
+          <ScalarProperty Name="Question_ID" ColumnName="Question_ID" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="sid" ColumnName="sid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="surveys">
+      <EntityTypeMapping TypeName="surveyMonkeyModel.survey">
+        <MappingFragment StoreEntitySet="survey">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="createdby" ColumnName="createdby" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="approved" ColumnName="approved" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="aid" ColumnName="aid" />
+          <ScalarProperty Name="dTime" ColumnName="dTime" />
+          <ScalarProperty Name="sex" ColumnName="sex" />
+          <ScalarProperty Name="tech" ColumnName="tech" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="surveyaudiences">
+      <EntityTypeMapping TypeName="surveyMonkeyModel.surveyaudience">
+        <MappingFragment StoreEntitySet="surveyaudience">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="conductsurveyid" ColumnName="conductsurveyid" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="surveyquestions">
+      <EntityTypeMapping TypeName="surveyMonkeyModel.surveyquestion">
+        <MappingFragment StoreEntitySet="surveyquestion">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="option1" ColumnName="option1" />
+          <ScalarProperty Name="option2" ColumnName="option2" />
+          <ScalarProperty Name="option3" ColumnName="option3" />
+          <ScalarProperty Name="option4" ColumnName="option4" />
+          <ScalarProperty Name="surveyid" ColumnName="surveyid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="surveyresponses">
+      <EntityTypeMapping TypeName="surveyMonkeyModel.surveyresponse">
+        <MappingFragment StoreEntitySet="surveyresponse">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="surveyid" ColumnName="surveyid" />
+          <ScalarProperty Name="questionid" ColumnName="questionid" />
+          <ScalarProperty Name="response" ColumnName="response" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="date" ColumnName="date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="teacherSurveys">
+      <EntityTypeMapping TypeName="surveyMonkeyModel.teacherSurvey">
+        <MappingFragment StoreEntitySet="teacherSurvey">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="createdby" ColumnName="createdby" />
+          <ScalarProperty Name="tid" ColumnName="tid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EMPMTRs">
+      <EntityTypeMapping TypeName="surveyMonkeyModel.EMPMTR">
+        <MappingFragment StoreEntitySet="EMPMTR">
+          <ScalarProperty Name="Emp_no" ColumnName="Emp_no" />
+          <ScalarProperty Name="Emp_firstname" ColumnName="Emp_firstname" />
+          <ScalarProperty Name="Emp_lastname" ColumnName="Emp_lastname" />
+          <ScalarProperty Name="Emp_middle" ColumnName="Emp_middle" />
+          <ScalarProperty Name="Dsgn_no" ColumnName="Dsgn_no" />
+          <ScalarProperty Name="Emp_email" ColumnName="Emp_email" />
+          <ScalarProperty Name="Joining_date" ColumnName="Joining_date" />
+          <ScalarProperty Name="Resign_date" ColumnName="Resign_date" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="IsWorking" ColumnName="IsWorking" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Roles" ColumnName="Roles" />
+          <ScalarProperty Name="sex" ColumnName="sex" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="STMTRs">
+      <EntityTypeMapping TypeName="surveyMonkeyModel.STMTR">
+        <MappingFragment StoreEntitySet="STMTR">
+          <ScalarProperty Name="Reg_No" ColumnName="Reg_No" />
+          <ScalarProperty Name="App_no" ColumnName="App_no" />
+          <ScalarProperty Name="St_firstname" ColumnName="St_firstname" />
+          <ScalarProperty Name="St_lastname" ColumnName="St_lastname" />
+          <ScalarProperty Name="St_middlename" ColumnName="St_middlename" />
+          <ScalarProperty Name="Father_name" ColumnName="Father_name" />
+          <ScalarProperty Name="St_email" ColumnName="St_email" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Marital_status" ColumnName="Marital_status" />
+          <ScalarProperty Name="Birth_date" ColumnName="Birth_date" />
+          <ScalarProperty Name="Nic_no" ColumnName="Nic_no" />
+          <ScalarProperty Name="Pr_city" ColumnName="Pr_city" />
+          <ScalarProperty Name="Per_city" ColumnName="Per_city" />
+          <ScalarProperty Name="Sess" ColumnName="Sess" />
+          <ScalarProperty Name="Pref_1" ColumnName="Pref_1" />
+          <ScalarProperty Name="Pref_2" ColumnName="Pref_2" />
+          <ScalarProperty Name="Adm_date" ColumnName="Adm_date" />
+          <ScalarProperty Name="Semester_no" ColumnName="Semester_no" />
+          <ScalarProperty Name="St_status" ColumnName="St_status" />
+          <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+          <ScalarProperty Name="Final_course" ColumnName="Final_course" />
+          <ScalarProperty Name="Enrl_status" ColumnName="Enrl_status" />
+          <ScalarProperty Name="SOS" ColumnName="SOS" />
+          <ScalarProperty Name="Section" ColumnName="Section" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Discipline" ColumnName="Discipline" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
