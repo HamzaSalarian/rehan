@@ -93,8 +93,9 @@ class _SurveyQuestionState extends State<SurveyQuestion> {
             Map data = snapshot.data[i];
             print(data);
             return GestureDetector(
-              onTap: () => Get.to(() => PieChart(
-                  id: widget.surveyId, data: widget.data, status: true)),
+              onTap: () => {}, //Get.to(() => PieChartWidget(
+              //id: widget.surveyId, data: widget.data, status: true
+              //)),
               child: Container(
                 color: ck.x,
                 padding: const EdgeInsets.all(20),

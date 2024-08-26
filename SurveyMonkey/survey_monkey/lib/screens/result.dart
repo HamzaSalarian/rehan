@@ -93,18 +93,19 @@ class _ResultState extends State<Result> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Get.to(() => BarChart(id: data['id'], data: data));
+                        //Get.to(() => BarChartWidget());
+                        //id: data['id'], data: data
                       },
                       color: ck.x,
                       icon: const Icon(Icons.bar_chart),
                     ),
                     IconButton(
                       onPressed: () {
-                        Get.to(() => PieChart(
-                              id: data['id'],
-                              data: data,
-                              status: false,
-                            ));
+                        //Get.to(() => PieChartWidget(
+                        // id: data['id'],
+                        // data: data,
+                        // status: false,
+                        // ));
                       },
                       color: ck.x,
                       icon: const Icon(Icons.pie_chart),

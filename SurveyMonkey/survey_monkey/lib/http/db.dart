@@ -18,7 +18,7 @@ import '../screens/survey/addQuestionYesNo.dart';
 
 class Db {
   final _dio = Dio();
-  final _ip = '192.168.100.21';
+  final _ip = '172.17.23.40';
 
   Db() {
     _dio.options.baseUrl = 'http://$_ip:5000/api/';
@@ -169,12 +169,16 @@ class Db {
     }
   }
 
-  Future results() async {
+  Future results({String gender = 'All', String discipline = 'All'}) async {
     try {
-      var rs = await _dio.get('results');
+      var rs = await _dio.get('results', queryParameters: {
+        'gender': gender,
+        'discipline': discipline,
+      });
       return rs.data as List;
     } catch (ex) {
       print('error:$ex');
+      return [];
     }
   }
 
@@ -225,9 +229,19 @@ class Db {
     }
   }
 
-  Future calculateGraph({required sid}) async {
+  Future calculateGraph({
+    required int sid,
+    String gender = 'All',
+    String discipline = 'All',
+  }) async {
     try {
-      var rs = await _dio.get('calculateGraph?sid=$sid');
+      var rs = await _dio.get('calculateGraph', queryParameters: {
+        'sid': sid,
+        'gender': gender,
+        'discipline': discipline,
+      });
+
+      // Assuming the API returns a list with four elements representing the graph data
       Graph.v1 = rs.data[0];
       Graph.v2 = rs.data[1];
       Graph.v3 = rs.data[2];
