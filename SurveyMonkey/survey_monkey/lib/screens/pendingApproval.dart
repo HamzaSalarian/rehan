@@ -1,35 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:survey_monkey/constants.dart';
 import 'package:survey_monkey/http/db.dart';
-
-import '../widgets/appbars.dart';
-import '../widgets/spacers.dart';
+import 'package:survey_monkey/widgets/appbars.dart';
+import 'package:survey_monkey/widgets/spacers.dart';
+import 'package:survey_monkey/constants.dart';
 
 class PendingApproval extends StatefulWidget {
-  const PendingApproval({super.key});
+  const PendingApproval({Key? key}) : super(key: key);
 
   @override
-  State<PendingApproval> createState() => _PendingApprovalState();
+  _PendingApprovalState createState() => _PendingApprovalState();
 }
 
 class _PendingApprovalState extends State<PendingApproval> {
-  late Future _future;
+  late Future<List<dynamic>> _futureSurveys;
 
   @override
   void initState() {
     super.initState();
-    _fetchData();
+    _futureSurveys =
+        Db().getAllSurveys(userType: 'admin'); // Initialize the future
   }
 
-  Future<void> _fetchData() async {
-    _future = Db().surveyByApproved(ap: 1, status: 'private');
+  void _refreshSurveys() {
+    setState(() {
+      _futureSurveys =
+          Db().getAllSurveys(userType: 'admin'); // Refresh the list of surveys
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: simpleAppBar(),
+      appBar: AppBar(title: Text('Pending Approval Surveys')),
       body: Container(
         width: Get.width,
         height: Get.height,
@@ -37,12 +40,25 @@ class _PendingApprovalState extends State<PendingApproval> {
         child: Column(
           children: [
             Text(
-              "Pending Approval",
+              "Surveys Pending Approval",
               style: TextStyle(fontSize: 20, color: ck.x),
             ),
             gap20(),
             Expanded(
-              child: _futureBuild(),
+              child: FutureBuilder<List<dynamic>>(
+                future: _futureSurveys,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Text("Error: ${snapshot.error.toString()}");
+                  } else if (snapshot.hasData) {
+                    return _list(snapshot.data!);
+                  } else {
+                    return Text("No data available");
+                  }
+                },
+              ),
             ),
           ],
         ),
@@ -50,64 +66,48 @@ class _PendingApprovalState extends State<PendingApproval> {
     );
   }
 
-  Widget _futureBuild() {
-    return FutureBuilder(
-      future: _future,
-      builder: (context, AsyncSnapshot snapshot) {
-        if (snapshot.hasData) {
-          return _list(snapshot);
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
-    );
-  }
-
-  Widget _list(AsyncSnapshot snapshot) {
+  Widget _list(List<dynamic> surveys) {
     return ListView.builder(
-      shrinkWrap: true,
-      itemCount: snapshot.data.length,
-      itemBuilder: (context, i) {
-        Map data = snapshot.data[i];
-        return data['approved']=='1'? Column(
+      itemCount: surveys.length,
+      itemBuilder: (context, index) {
+        var data = surveys[index];
+        return Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("${data['name']}"),
-                Row(
+            Card(
+              child: ListTile(
+                title: Text("${data['name']}"),
+                subtitle: Text(
+                    "Status: ${data['approved'] == 1 ? 'Approved' : 'Pending'}"),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     IconButton(
+                      icon: Icon(Icons.check, color: Colors.green),
                       onPressed: () async {
-                        await Db()
-                            .acceptRejectSurvey(id: data['id'], approved: 1);
-                        setState(() {
-                          _fetchData();
-                        });
+                        bool success = await Db()
+                            .approveSurvey(surveyId: data['id'], approved: 1);
+                        if (success) {
+                          _refreshSurveys();
+                        }
                       },
-                      color: ck.x,
-                      icon: const Icon(Icons.check),
                     ),
                     IconButton(
+                      icon: Icon(Icons.close, color: Colors.red),
                       onPressed: () async {
-                        await Db()
-                            .acceptRejectSurvey(id: data['id'], approved: 2);
-                        setState(() {
-                          _fetchData();
-                        });
+                        bool success = await Db()
+                            .acceptRejectSurvey(id: data['id'], approved: 0);
+                        if (success) {
+                          _refreshSurveys();
+                        }
                       },
-                      color: Colors.red,
-                      icon: const Icon(Icons.close),
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
-            gap20(),
+            Divider(),
           ],
-        ) : Container();
+        );
       },
     );
   }

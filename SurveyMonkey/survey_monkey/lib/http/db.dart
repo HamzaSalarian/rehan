@@ -18,7 +18,7 @@ import '../screens/survey/addQuestionYesNo.dart';
 
 class Db {
   final _dio = Dio();
-  final _ip = '172.17.23.40';
+  final _ip = '192.168.100.21';
 
   Db() {
     _dio.options.baseUrl = 'http://$_ip:5000/api/';
@@ -58,9 +58,15 @@ class Db {
     }
   }
 
-  Future createSurvey({required name, required type, required sex}) async {
+  Future<Map<String, dynamic>> createSurvey(
+      {required String name, required String type, required String sex}) async {
+    Map<String, dynamic> result = {
+      'success': false,
+      'surveyId': -1 // Default to -1 or null if you prefer
+    };
+
     try {
-      var res = await _dio.post('createSurvey', data: {
+      var response = await _dio.post('createSurvey', data: {
         'name': name,
         'type': type,
         'createdby': User.id,
@@ -69,17 +75,16 @@ class Db {
         'sex': sex,
       });
 
-      print('Survey Created->${res.data}');
-      if (type == 'MCQS') {
-        Get.to(() => AddQuestionMcqs(
-              id: res.data,
-            ));
-      } else {
-        Get.to(() => AddQuestionYesNo(id: res.data));
+      if (response.statusCode == 200) {
+        result['success'] = true;
+        result['surveyId'] = response.data[
+            'id']; // Assuming 'id' is returned by your server in the response
       }
-    } catch (ex) {
-      print('error:$ex');
+    } catch (e) {
+      print("Error creating survey: $e");
     }
+
+    return result;
   }
 
   Future addQuestion({required q, required id, required bool isMore}) async {
@@ -103,33 +108,88 @@ class Db {
     }
   }
 
-  Future addMcq(
-      {required title,
-      required id,
-      required op1,
-      required op2,
-      required op3,
-      required op4,
-      required bool isMore}) async {
+  // function to get Approved surveys for the user.
+
+  Future<List<dynamic>> getApprovedSurveys(String userId) async {
     try {
-      await _dio.post('addQuestion', data: {
-        'title': title,
+      var response = await _dio
+          .get('getApprovedSurveys', queryParameters: {'userId': userId});
+      if (response.statusCode == 200) {
+        // Make sure to check if the data is a list before casting
+        if (response.data is List) {
+          return List<Map<String, dynamic>>.from(response.data);
+        } else {
+          print('Data received is not a list');
+          return [];
+        }
+      } else {
+        print(
+            'Failed to load approved surveys with status code: ${response.statusCode}');
+        return [];
+      }
+    } catch (e) {
+      print('Error fetching approved surveys: $e');
+      return []; // Return an empty list on exception
+    }
+  }
+
+  Future<void> addMcq({
+    required String title,
+    required int id,
+    required String op1,
+    required String op2,
+    required String op3,
+    required String op4,
+    required bool isMore,
+  }) async {
+    try {
+      final response = await _dio.post('addQuestion', data: {
+        'surveyid': id,
+        'question': title,
         'option1': op1,
         'option2': op2,
         'option3': op3,
         'option4': op4,
-        'surveyid': id,
       });
 
-      if (!isMore) {
-        if (User.discipline == '') {
-          Get.to(() => const AdminHome());
-        } else {
-          Get.to(() => const UserHome());
+      if (response.statusCode == 200) {
+        if (!isMore) {
+          if (User.discipline.isEmpty) {
+            Get.off(() => const AdminHome());
+          } else {
+            Get.off(() => const UserHome());
+          }
         }
+      } else {
+        Get.snackbar("Error",
+            "Failed to add question: ${response.data['Message'] ?? 'Unknown error'}");
       }
-    } catch (ex) {
-      print('error:$ex');
+    } catch (e) {
+      print('Error adding MCQ: $e');
+      Get.snackbar("Error", "Exception occurred: $e");
+    }
+  }
+
+  Future<List<dynamic>> getParticipateSurveys() async {
+    try {
+      var response = await _dio.get('getParticipateSurveys');
+
+      if (response.statusCode == 200) {
+        // Make sure to check if the data is a list before casting
+        if (response.data is List) {
+          return List<Map<String, dynamic>>.from(response.data);
+        } else {
+          print('Data received is not a list');
+          return [];
+        }
+      } else {
+        print(
+            'Failed to load approved surveys with status code: ${response.statusCode}');
+        return [];
+      }
+    } catch (e) {
+      print('Error fetching approved surveys: $e');
+      return []; // Return an empty list on exception
     }
   }
 
@@ -150,19 +210,51 @@ class Db {
     }
   }
 
+  //aprove survey
+
+  Future<bool> approveSurvey(
+      {required int surveyId, required int approved}) async {
+    try {
+      var response = await _dio
+          .post('approveSurvey', data: {'id': surveyId, 'approved': approved});
+
+      if (response.statusCode == 200) {
+        print('Survey approval status updated successfully: ${response.data}');
+        return true;
+      } else {
+        print(
+            'Failed to update survey approval status: ${response.statusCode} - ${response.data}');
+        return false;
+      }
+    } catch (e) {
+      print('Error updating survey approval status: $e');
+      return false;
+    }
+  }
+
+  //getAll surveys
+
+  // Method to fetch all surveys from the backend
+  Future<List<dynamic>> getAllSurveys({String userType = 'user'}) async {
+    try {
+      var response = await _dio
+          .get('getAllSurveys', queryParameters: {'user_type': userType});
+      if (response.statusCode == 200 && response.data is List) {
+        return List<Map<String, dynamic>>.from(response.data);
+      } else {
+        throw Exception(
+            'Failed to load surveys with status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching surveys: $e');
+      return []; // Return an empty list in case of exceptions
+    }
+  }
+
   //these are conducted surves
   Future surveyNotApproved() async {
     try {
       var rs = await _dio.get('surveyNotApproved');
-      return rs.data as List;
-    } catch (ex) {
-      print('error:$ex');
-    }
-  }
-
-  Future getAllSurveys() async {
-    try {
-      var rs = await _dio.get('getAllSurveys');
       return rs.data as List;
     } catch (ex) {
       print('error:$ex');

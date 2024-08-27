@@ -1,232 +1,230 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:survey_monkey/Helper/User.dart';
-import 'package:survey_monkey/constants.dart';
-import 'package:survey_monkey/http/db.dart';
-import 'package:survey_monkey/screens/graphs/barChart.dart';
-import 'package:survey_monkey/screens/graphs/history.dart';
-import 'package:survey_monkey/screens/graphs/pieChart.dart';
-import 'package:survey_monkey/screens/surveyQuestions.dart';
-import '../widgets/appbars.dart';
-import '../widgets/spacers.dart';
-
-enum ChartType { bar, pie }
+import 'package:fl_chart/fl_chart.dart';
 
 class Results extends StatefulWidget {
-  const Results({super.key});
+  const Results({Key? key}) : super(key: key);
 
   @override
   State<Results> createState() => _ResultsState();
 }
 
 class _ResultsState extends State<Results> {
-  late Future _future;
   String selectedGender = 'All';
   String selectedDiscipline = 'All';
+  bool showBarChart = false;
+
+  // Static data
+  final List<Map<String, dynamic>> allData = [
+    {
+      'question': "What's your favorite programming language?",
+      'responses': [
+        {'label': 'Python', 'value': 70},
+        {'label': 'Java', 'value': 45},
+        {'label': 'C++', 'value': 30},
+        {'label': 'JavaScript', 'value': 55},
+        {'label': 'Skipped', 'value': 10},
+      ],
+      'gender': 'Male',
+      'discipline': 'CS',
+    },
+    {
+      'question': "Which framework do you prefer for app development?",
+      'responses': [
+        {'label': 'Flutter', 'value': 80},
+        {'label': 'React Native', 'value': 50},
+        {'label': 'Xamarin', 'value': 20},
+        {'label': 'Skipped', 'value': 15},
+      ],
+      'gender': 'Female',
+      'discipline': 'CS',
+    },
+  ];
+
+  List<Map<String, dynamic>> filteredData = [];
 
   @override
   void initState() {
     super.initState();
-    _future =
-        Db().results(gender: selectedGender, discipline: selectedDiscipline);
+    _applyFilters();
+  }
+
+  void _applyFilters() {
+    setState(() {
+      filteredData = allData.where((data) {
+        bool matchesGender =
+            selectedGender == 'All' || data['gender'] == selectedGender;
+        bool matchesDiscipline = selectedDiscipline == 'All' ||
+            data['discipline'] == selectedDiscipline;
+        return matchesGender && matchesDiscipline;
+      }).toList();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: simpleAppBar(),
-      body: Container(
-        width: Get.width,
-        height: Get.height,
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Text("Results", style: TextStyle(fontSize: 20, color: ck.x)),
-            gap20(),
-            _buildFilters(),
-            gap20(),
-            Expanded(child: _futureBuild()),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () => _showChart(ChartType.bar),
-                  child: Text('Show Bar Chart'),
-                ),
-                ElevatedButton(
-                  onPressed: () => _showChart(ChartType.pie),
-                  child: Text('Show Pie Chart'),
-                ),
-              ],
+      appBar: AppBar(
+        title: Text('Results'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(showBarChart ? Icons.pie_chart : Icons.bar_chart),
+            onPressed: () {
+              setState(() {
+                showBarChart = !showBarChart;
+              });
+            },
+          )
+        ],
+      ),
+      body: Column(
+        children: [
+          _buildFilters(),
+          Expanded(
+            child: ListView.builder(
+              itemCount: filteredData.length,
+              itemBuilder: (context, index) {
+                return _buildQuestionCard(filteredData[index]);
+              },
             ),
-            gap20(),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildFilters() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         DropdownButton<String>(
           value: selectedGender,
-          items: <String>['All', 'Male', 'Female'].map((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-          onChanged: (newValue) {
+          onChanged: (String? newValue) {
             setState(() {
               selectedGender = newValue!;
               _applyFilters();
             });
           },
-        ),
-        const SizedBox(width: 20),
-        DropdownButton<String>(
-          value: selectedDiscipline,
-          items: <String>['All', 'BS IT', 'CS', 'SE', 'AI'].map((String value) {
+          items: <String>['All', 'Male', 'Female']
+              .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(value),
             );
           }).toList(),
-          onChanged: (newValue) {
+        ),
+        DropdownButton<String>(
+          value: selectedDiscipline,
+          onChanged: (String? newValue) {
             setState(() {
               selectedDiscipline = newValue!;
               _applyFilters();
             });
           },
+          items: <String>['All', 'BS IT', 'CS', 'SE', 'AI']
+              .map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
         ),
       ],
     );
   }
 
-  void _applyFilters() {
-    setState(() {
-      _future =
-          Db().results(gender: selectedGender, discipline: selectedDiscipline);
-    });
-  }
-
-  Widget _futureBuild() {
-    return FutureBuilder(
-      future: _future,
-      builder: (context, AsyncSnapshot snapshot) {
-        if (snapshot.hasData) {
-          return _list(snapshot);
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
-      },
-    );
-  }
-
-  Widget _list(AsyncSnapshot snapshot) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: snapshot.data.length,
-      itemBuilder: (context, i) {
-        Map data = snapshot.data[i];
-        return GestureDetector(
-          onTap: () {
-            Get.to(SurveyQuestion.set(
-              id: data['id'],
-              surveyId: data['responses'][0]['surveyid'].toString(),
-            ));
-          },
-          child: Container(
-            color: Colors.red,
-            width: Get.width,
-            padding: const EdgeInsets.all(10),
-            margin: const EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(data['name']),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () => _showChart(ChartType.bar),
-                      color: ck.x,
-                      icon: const Icon(Icons.bar_chart),
-                    ),
-                    IconButton(
-                      onPressed: () => _showChart(ChartType.pie),
-                      color: ck.x,
-                      icon: const Icon(Icons.pie_chart),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        User.tempSurveyId = data['id'];
-                        Get.to(() => const History());
-                      },
-                      color: ck.x,
-                      icon: const Icon(Icons.history),
-                    ),
-                  ],
-                )
-              ],
+  Widget _buildQuestionCard(Map<String, dynamic> questionData) {
+    return Card(
+      elevation: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: <Widget>[
+            Text(
+              questionData['question'],
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-          ),
-        );
-      },
+            SizedBox(
+              height: 200,
+              child: showBarChart
+                  ? BarChart(
+                      BarChartData(
+                        barGroups: _buildBarGroups(questionData['responses']),
+                        titlesData: FlTitlesData(show: true),
+                        borderData: FlBorderData(show: false),
+                      ),
+                    )
+                  : PieChart(
+                      PieChartData(
+                        sections: _buildPieSections(questionData['responses']),
+                        sectionsSpace: 2,
+                      ),
+                    ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
-  void _showChart(ChartType type) {
-    List<double> chartData =
-        ChartData.getChartData(selectedGender, selectedDiscipline);
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        Widget chartWidget = type == ChartType.bar
-            ? BarChartWidget(yValues: chartData)
-            : PieChartWidget(values: chartData);
-
-        return Dialog(
-          child: Container(
-            height: 400, // Adjust based on your UI needs
-            width: double.infinity,
-            padding: EdgeInsets.all(20),
-            child: chartWidget,
-          ),
-        );
-      },
-    );
+  List<PieChartSectionData> _buildPieSections(List responses) {
+    return responses.map<PieChartSectionData>((response) {
+      return PieChartSectionData(
+        value: double.parse(response['value'].toString()),
+        title: '${response['label']} (${response['value']})',
+        color: _getColor(response['label']),
+        radius: 50,
+      );
+    }).toList();
   }
-}
 
-class ChartData {
-  static Map<String, Map<String, List<double>>> data = {
-    'All': {
-      'All': [10, 30, 20, 25],
-      'BS IT': [15, 25, 35, 20],
-      'CS': [20, 20, 40, 10],
-      'SE': [25, 15, 30, 20],
-      'AI': [30, 20, 25, 15],
-    },
-    'Male': {
-      'All': [12, 28, 25, 20],
-      'BS IT': [10, 20, 30, 25],
-      'CS': [20, 15, 35, 20],
-      'SE': [25, 25, 20, 20],
-      'AI': [15, 30, 25, 20],
-    },
-    'Female': {
-      'All': [10, 25, 30, 20],
-      'BS IT': [20, 20, 30, 20],
-      'CS': [15, 35, 25, 15],
-      'SE': [30, 20, 15, 25],
-      'AI': [20, 25, 20, 25],
-    },
-  };
+  List<BarChartGroupData> _buildBarGroups(List responses) {
+    List<BarChartGroupData> barGroups = [];
+    int x = 0;
+    for (var response in responses) {
+      barGroups.add(
+        BarChartGroupData(
+          x: x++,
+          barRods: [
+            BarChartRodData(
+              toY: double.parse(response['value'].toString()),
+              color: _getColor(response['label']),
+              width: 15,
+            ),
+          ],
+        ),
+      );
+    }
+    return barGroups;
+  }
 
-  static List<double> getChartData(String gender, String discipline) {
-    return data[gender]?[discipline] ?? [0, 0, 0, 0];
+  Color _getColor(String label) {
+    switch (label) {
+      case 'Python':
+        return Colors.blue;
+      case 'Java':
+        return Colors.red;
+      case 'C++':
+        return Colors.green;
+      case 'JavaScript':
+        return Colors.yellow;
+      case 'Flutter':
+        return Colors.purple;
+      case 'React Native':
+        return Colors.orange;
+      case 'Xamarin':
+        return Colors.grey;
+      case 'AWS':
+        return Colors.amber;
+      case 'Azure':
+        return Colors.blueAccent;
+      case 'Google Cloud':
+        return Colors.greenAccent;
+      case 'Skipped':
+        return Colors.black54; // Color for skipped responses
+      default:
+        return Colors.black;
+    }
   }
 }

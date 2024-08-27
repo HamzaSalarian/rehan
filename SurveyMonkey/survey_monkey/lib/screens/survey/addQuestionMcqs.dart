@@ -20,6 +20,44 @@ class _AddQuestionMcqsState extends State<AddQuestionMcqs> {
   TextEditingController o3 = TextEditingController();
   TextEditingController o4 = TextEditingController();
 
+  void clearFields() {
+    q.clear();
+    o1.clear();
+    o2.clear();
+    o3.clear();
+    o4.clear();
+  }
+
+  void addQuestion(bool isMore) async {
+    if (q.text.isNotEmpty &&
+        o1.text.isNotEmpty &&
+        o2.text.isNotEmpty &&
+        o3.text.isNotEmpty &&
+        o4.text.isNotEmpty) {
+      try {
+        await Db().addMcq(
+          title: q.text,
+          id: widget.id,
+          op1: o1.text,
+          op2: o2.text,
+          op3: o3.text,
+          op4: o4.text,
+          isMore: isMore,
+        );
+        Get.snackbar("Success", "Question added successfully");
+        if (isMore) {
+          clearFields();
+        } else {
+          Get.back(); // Navigate back after adding the last question
+        }
+      } catch (e) {
+        Get.snackbar("Error", "Failed to add question: $e");
+      }
+    } else {
+      Get.snackbar("Error", "Please fill in all fields");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,37 +109,11 @@ class _AddQuestionMcqsState extends State<AddQuestionMcqs> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      Db().addMcq(
-                          title: q.text,
-                          id: widget.id,
-                          op1: o1.text,
-                          op2: o2.text,
-                          op3: o3.text,
-                          op4: o4.text,
-                          isMore: true);
-
-                      setState(() {
-                        q.text = '';
-                        o1.text = '';
-                        o2.text = '';
-                        o3.text = '';
-                        o4.text = '';
-                      });
-                    },
+                    onPressed: () => addQuestion(true),
                     child: const Text("Add More"),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      Db().addMcq(
-                          title: q.text,
-                          id: widget.id,
-                          op1: o1.text,
-                          op2: o2.text,
-                          op3: o3.text,
-                          op4: o4.text,
-                          isMore: false);
-                    },
+                    onPressed: () => addQuestion(false),
                     child: const Text("Done"),
                   ),
                 ],

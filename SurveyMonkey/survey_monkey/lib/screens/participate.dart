@@ -22,7 +22,7 @@ class _ParticipateState extends State<Participate> {
   @override
   void initState() {
     super.initState();
-    _future = Db().surveyByApproved(ap: 1, status: 'public');
+    _future = Db().getParticipateSurveys();
   }
 
   @override
@@ -78,7 +78,7 @@ class _ParticipateState extends State<Participate> {
                   ElevatedButton(
                     onPressed: () {
                       User.tempSurveyId = data['id'];
-                      if (data['type'] == 'MCQS') {
+                      if (data['type'] == 'MCQs') {
                         Get.to(() => const ParticipateMCQs());
                       } else {
                         Get.to(() => const ParticipateYesNo());
